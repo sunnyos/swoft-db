@@ -272,7 +272,8 @@ class Model implements \ArrayAccess, \Iterator, Arrayable,\JsonSerializable
     public function fill(array $attributes): self
     {
         foreach ($attributes as $name => $value) {
-            $methodName = sprintf('set%s', ucfirst($name));
+            $name = str_replace(' ', '', ucwords(str_replace('_', ' ', $name)));
+            $methodName = sprintf('set%s', $name);
             if (method_exists($this, $methodName)) {
                 $this->$methodName($value);
             }
